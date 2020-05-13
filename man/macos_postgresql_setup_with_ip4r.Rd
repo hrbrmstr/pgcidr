@@ -4,34 +4,46 @@
 \alias{macos_postgresql_setup_with_ip4r}
 \title{Setting up macOS PostgreSQL 12 with ip4r extension}
 \description{
-Setting up macOS PostgreSQL 12 with ip4r extension
+Instructions for setting up PostgreSQL + ipvr + ODBC driver
+locally on macOS and using the ODBC driver with the DBI package.
 }
-\section{Setup}{
-\preformatted{$ brew uninstall postgresql
-$ rm -rf /usr/local/var/postgres
+\section{OS Setup}{
 
-$ brew tap petere/postgresql
+
+Get rid of any old, vanilla pg\if{html}{\out{<div class="shell">}}\preformatted{$ brew uninstall postgresql
+$ rm -rf /usr/local/var/postgres
+}\if{html}{\out{</div>}}
+
+Grab PostgreSQL 12 from The True Source™\if{html}{\out{<div class="shell">}}\preformatted{$ brew tap petere/postgresql
 $ brew install petere/postgresql/postgresql@12
 $ brew install petere/postgresql/postgresql-common
-$ initdb DATA_PATH  -E utf8
+}\if{html}{\out{</div>}}
+
+Initialize the DB and start PG\if{html}{\out{<div class="shell">}}\preformatted{$ initdb DATA_PATH  -E utf8
 $ pg_ctl -D /Volumes/otg/postgres -l logfile start
+}\if{html}{\out{</div>}}
 
-$ ps -ef | grep postgr
+Make sure it's running\if{html}{\out{<div class="shell">}}\preformatted{$ ps -ef | grep postgr
+}\if{html}{\out{</div>}}
 
-$ pg_config
+Eyeball the resultant PG config vars\if{html}{\out{<div class="shell">}}\preformatted{$ pg_config
+}\if{html}{\out{</div>}}
 
-$ createdb $\{USER\}
+Create a user db just b/c\if{html}{\out{<div class="shell">}}\preformatted{$ createdb $\{USER\}
+}\if{html}{\out{</div>}}
 
-$ psql
+Make sure it worked\if{html}{\out{<div class="shell">}}\preformatted{$ psql
 username=# \\q
+}\if{html}{\out{</div>}}
 
-$ cd /place/where/you/clone/stuff
+Get and install ip4r\if{html}{\out{<div class="shell">}}\preformatted{$ cd /place/where/you/clone/stuff
 $ git clone git@github.com:RhodiumToad/ip4r.git
 $ cd ip4r
 $ make
 $ sudo make install
+}\if{html}{\out{</div>}}
 
-$ cd /place/where/you/clone/stuff
+Get and install PG ODBC\if{html}{\out{<div class="shell">}}\preformatted{$ cd /place/where/you/clone/stuff
 $ wget https://ftp.postgresql.org/pub/odbc/versions/src/psqlodbc-12.01.0000.tar.gz
 $ tar -xvzf psqlodbc-12.01.0000.tar.gz
 $ cd psqlodbc-12.01.0000
@@ -39,10 +51,23 @@ $ ./configure
 $ make -j 8
 $ sudo make install
 $ ls -l /usr/local/lib/psqlodbca.so
+}\if{html}{\out{</div>}}
 
-$ createdb working
-$ psql --command="CREATE EXTENSION ip4r;" working
+Make a "working" db\if{html}{\out{<div class="shell">}}\preformatted{$ createdb working
+}\if{html}{\out{</div>}}
+
+Add the ip4r extension to the dbs we made\if{html}{\out{<div class="shell">}}\preformatted{$ psql --command="CREATE EXTENSION ip4r;" working
 $ psql --command="CREATE EXTENSION ip4r;" $\{USER\}
+}\if{html}{\out{</div>}}
 }
+
+\section{macOS DBI PostgreSQL Setup for ^^}{
+\if{html}{\out{<div class="r">}}\preformatted{DBI::dbConnect(
+  odbc::odbc(),
+  driver = "/usr/local/lib/psqlodbca.so",
+  Database = "working",
+  Host = "localhost"
+) -> con
+}\if{html}{\out{</div>}}
 }
 
