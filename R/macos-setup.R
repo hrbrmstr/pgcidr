@@ -1,0 +1,42 @@
+#' @name macos_postgresql_setup_with_ip4r
+#' @title Setting up macOS PostgreSQL 12 with ip4r extension
+#' @section Setup:
+#' ```
+#' $ brew uninstall postgresql
+#' $ rm -rf /usr/local/var/postgres
+#'
+#' $ brew tap petere/postgresql
+#' $ brew install petere/postgresql/postgresql@12
+#' $ brew install petere/postgresql/postgresql-common
+#' $ initdb DATA_PATH  -E utf8
+#' $ pg_ctl -D /Volumes/otg/postgres -l logfile start
+#'
+#' $ ps -ef | grep postgr
+#'
+#' $ pg_config
+#'
+#' $ createdb ${USER}
+#'
+#' $ psql
+#' username=# \q
+#'
+#' $ cd /place/where/you/clone/stuff
+#' $ git clone git@@github.com:RhodiumToad/ip4r.git
+#' $ cd ip4r
+#' $ make
+#' $ sudo make install
+#'
+#' $ cd /place/where/you/clone/stuff
+#' $ wget https://ftp.postgresql.org/pub/odbc/versions/src/psqlodbc-12.01.0000.tar.gz
+#' $ tar -xvzf psqlodbc-12.01.0000.tar.gz
+#' $ cd psqlodbc-12.01.0000
+#' $ ./configure
+#' $ make -j 8
+#' $ sudo make install
+#' $ ls -l /usr/local/lib/psqlodbca.so
+#'
+#' $ createdb working
+#' $ psql --command="CREATE EXTENSION ip4r;" working
+#' $ psql --command="CREATE EXTENSION ip4r;" ${USER}
+#' ```
+NULL

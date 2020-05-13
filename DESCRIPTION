@@ -1,6 +1,6 @@
 Package: pgcidr
 Type: Package
-Title: pgcidr title goes here otherwise CRAN checks fail
+Title: Perform IP Address in CIDR Lookups with PostgreSQL and ip4r
 Version: 0.1.0
 Date: 2020-05-13
 Authors@R: c(
@@ -8,17 +8,23 @@ Authors@R: c(
            comment = c(ORCID = "0000-0001-5670-2640"))
   )
 Maintainer: Bob Rudis <bob@rud.is>
-Description: A good description goes here otherwise CRAN checks fail.
+Description: PostgreSQL has built-in support for IP address and CIDR types
+    but the ip4r <https://github.com/RhodiumToad/ip4r> extension is much faster.
+    Tools are provided to create CIDR lookup and IP address source tables and
+    perform IP address in CIDR queries. Documentation on how to setup macOS
+    with PostgreSQL and ip4r is also provided.
 URL: https://git.rud.is/hrbrmstr/pgcidr
 BugReports: https://gitlab.com/hrbrmstr/pgcidr/issues
 Encoding: UTF-8
-License: AGPL
+License: MIT + file LICENSE
 Suggests: 
-    covr, tinytest
+    covr, tinytest, tibble
 Depends: 
-    R (>= 3.2.0)
-Imports: 
-    httr,
-    jsonlite
+    R (>= 3.5.0),
+    DBI,
+    odbc
+Imports:
+    glue,
+    readr
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0

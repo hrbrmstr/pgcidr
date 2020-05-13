@@ -4,9 +4,13 @@
 \name{pgcidr}
 \alias{pgcidr}
 \alias{pgcidr-package}
-\title{...}
+\title{Perform IP Address in CIDR Lookups with PostgreSQL}
 \description{
-A good description goes here otherwise CRAN checks fail.
+PostgreSQL has built-in support for IP address and CIDR types
+but the ip4r \url{https://github.com/RhodiumToad/ip4r} extension is much faster.
+Tools are provided to create CIDR lookup and IP address source tables and
+perform IP address in CIDR queries. Documentation on how to setup macOS
+with PostgreSQL and ip4r is also provided.
 }
 \seealso{
 Useful links:

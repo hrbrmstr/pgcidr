@@ -39,6 +39,48 @@ packageVersion("pgcidr")
 
 ```
 
+```{r ex-01, eval=FALSE}
+DBI::dbConnect(
+  odbc::odbc(),
+  driver = "/usr/local/lib/psqlodbca.so",
+  Database = "working",
+  Host = "localhost"
+) -> con
+
+create_cidr_lookup_table(
+  pgcon = con,
+  tbl_name = "amazon_cidrs",
+  drop = TRUE,
+  xdf = system.file("extdat", "amzn-cidrs.csv", package = "pgcidr"),
+)
+
+create_ip_source_table(
+  pgcon = con,
+  tbl_name = "weblog",
+  drop = TRUE,
+  xdf = system.file("extdat", "weblog.csv", package = "pgcidr")
+)
+
+find_ips_in_cidrs(
+  con, "weblog", "amazon_cidrs"
+)
+
+## # A tibble: 83 x 3
+##    ip             entity        cidr         
+##    <chr>          <chr>         <chr>        
+##  1 54.235.230.238 us-east-1     54.234.0.0/15
+##  2 54.227.107.78  us-east-1     54.226.0.0/15
+##  3 96.127.69.213  us-gov-west-1 96.127.0.0/17
+##  4 3.82.223.254   us-east-1     3.80.0.0/12  
+##  5 3.83.153.45    us-east-1     3.80.0.0/12  
+##  6 54.160.105.136 us-east-1     54.160.0.0/13
+##  7 54.225.41.245  us-east-1     54.224.0.0/15
+##  8 3.87.18.119    us-east-1     3.80.0.0/12  
+##  9 54.91.31.71    us-east-1     54.88.0.0/14 
+## 10 54.90.66.13    us-east-1     54.88.0.0/14 
+## # … with 73 more rows
+```
+
 ## pgcidr Metrics
 
 ```{r cloc, echo=FALSE}
