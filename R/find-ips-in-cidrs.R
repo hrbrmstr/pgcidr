@@ -36,7 +36,7 @@
 #' )
 #'
 #' }
-find_ips_in_cidrs <- function(pgcon, ip_tbl, cidr_tbl,
+find_ips_in_cidrs <- function(pgcon, ip_tbl, cidr_tbl,
                               ip_col = "ip", cidr_col = "cidr") {
 
   stopifnot(inherits(con, "PostgreSQL"))
