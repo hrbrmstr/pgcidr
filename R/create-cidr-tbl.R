@@ -45,7 +45,7 @@
 create_cidr_lookup_table <- function(pgcon, tbl_name, drop=FALSE, xdf,
                                      entity_col="entity", cidr_col="cidr") {
 
-  stopifnot(inherits(con, "PostgreSQL"))
+  stopifnot(inherits(pgcon, "PostgreSQL"))
 
   tbl_name <- tbl_name[1]
   idx_name <- ac(gg("{tbl_name}_idx"))
@@ -69,14 +69,14 @@ create_cidr_lookup_table <- function(pgcon, tbl_name, drop=FALSE, xdf,
   }
 
   if (drop) {
-    dbExecute(con, ac(gg("DROP TABLE IF EXISTS {tbl_name}")))
-    dbExecute(con, ac(gg("DROP INDEX IF EXISTS {idx_name}")))
+    dbExecute(pgcon, ac(gg("DROP TABLE IF EXISTS {tbl_name}")))
+    dbExecute(pgcon, ac(gg("DROP INDEX IF EXISTS {idx_name}")))
   }
 
-  dbExecute(con, ac(gg("CREATE TABLE {tbl_name}({entity_col} text not null, {cidr_col} ip4r primary key)")))
+  dbExecute(pgcon, ac(gg("CREATE TABLE {tbl_name}({entity_col} text not null, {cidr_col} ip4r primary key)")))
 
-  dbExecute(con, ac(gg("COPY {tbl_name} FROM '{tf}' WITH (format csv, header)")))
-  dbExecute(con, ac(gg("CREATE INDEX {idx_name} ON {tbl_name} USING gist({cidr_col})")))
+  dbExecute(pgcon, ac(gg("COPY {tbl_name} FROM '{tf}' WITH (format csv, header)")))
+  dbExecute(pgcon, ac(gg("CREATE INDEX {idx_name} ON {tbl_name} USING gist({cidr_col})")))
 
   invisible(NULL)
 

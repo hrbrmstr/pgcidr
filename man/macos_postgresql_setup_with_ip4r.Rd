@@ -20,7 +20,7 @@ $ brew install petere/postgresql/postgresql-common
 }\if{html}{\out{</div>}}
 
 Initialize the DB and start PG\if{html}{\out{<div class="shell">}}\preformatted{$ initdb DATA_PATH  -E utf8
-$ pg_ctl -D /Volumes/otg/postgres -l logfile start
+$ pg_ctl -D /path/to/postgres -l logfile start
 }\if{html}{\out{</div>}}
 
 Make sure it's running\if{html}{\out{<div class="shell">}}\preformatted{$ ps -ef | grep postgr

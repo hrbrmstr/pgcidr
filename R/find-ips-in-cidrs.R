@@ -39,7 +39,7 @@
 find_ips_in_cidrs <- function(pgcon, ip_tbl, cidr_tbl,
                               ip_col = "ip", cidr_col = "cidr") {
 
-  stopifnot(inherits(con, "PostgreSQL"))
+  stopifnot(inherits(pgcon, "PostgreSQL"))
 
   ip_tbl <- ip_tbl[1]
   cidr_tbl <- cidr_tbl[1]
@@ -47,7 +47,7 @@ find_ips_in_cidrs <- function(pgcon, ip_tbl, cidr_tbl,
   cidr_col <- cidr_col[1]
 
   DBI::dbGetQuery(
-    con,
+    pgcon,
     ac(gg("
 SELECT
   *

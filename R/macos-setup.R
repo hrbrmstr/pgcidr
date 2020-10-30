@@ -23,7 +23,7 @@
 #'
 #' ```shell
 #' $ initdb DATA_PATH  -E utf8
-#' $ pg_ctl -D /Volumes/otg/postgres -l logfile start
+#' $ pg_ctl -D /path/to/postgres -l logfile start
 #' ```
 #'
 #' Make sure it's running
